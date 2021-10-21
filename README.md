@@ -1,2 +1,2 @@
 # multiSelectLookup
-multiSelectLookup
+Resizing column
