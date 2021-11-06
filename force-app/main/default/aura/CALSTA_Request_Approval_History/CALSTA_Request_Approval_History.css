@@ -1,0 +1,35 @@
+.THIS {
+}
+.THIS .slds-textarea
+{
+    height:100px;
+}
+.THIS .error
+{
+    color:red;
+}
+.THIS .slds-table tr td, .THIS .slds-table tr th{
+    cursor:pointer;
+}
+.THIS .slds-truncate>button 
+{
+    border: none;
+    outline: none;
+    box-shadow: none;
+    text-align: left;
+    line-height:20px;
+}
+.THIS .show{
+    display : none !important;
+    min-height:420px;
+    
+    }
+@media all and (max-width: 767px) {
+    .THIS .show{
+        display : block !important;
+        
+    }
+.THIS.scrollerSize {
+    height: 300px;
+}
+}

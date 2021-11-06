@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Board_of_Pilot_Commissioners</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Board of Pilot Commissioners</label>
+        <sharedTo>
+            <role>Board_of_Pilot_Commissioners</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>Board of Pilot Commissioners</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>California_Highway_Patrol</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>California Highway Patrol</label>
+        <sharedTo>
+            <role>California_Highway_Patrol</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>California Highway Patrol</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>California_State_Transportation_Agency</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>California State Transportation Agency</label>
+        <sharedTo>
+            <role>CalSTA</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>California State Transportation Agency</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>California_Transportation_Commission</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>California Transportation Commission</label>
+        <sharedTo>
+            <role>California_Transportation_Commission</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>California Transportation Commission</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Confidential_Requests</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Confidential Requests</label>
+        <sharedTo>
+            <group>Confidential_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Department_of_Motor_Vehicles</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Department of Motor Vehicles</label>
+        <sharedTo>
+            <role>Department_of_Motor_Vehicles</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>Department of Motor Vehicles</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Department_of_Transportation</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Department of Transportation</label>
+        <sharedTo>
+            <role>Department_of_Transportation</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>Department of Transportation</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Governor_s_Office</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Governor’s Office</label>
+        <sharedTo>
+            <role>CalSTA</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>Governor’s Office</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>High_Speed_Rail_Authority</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>High-Speed Rail Authority</label>
+        <sharedTo>
+            <role>High_Speed_Rail_Authority</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>High-Speed Rail Authority</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>New_Motor_Vehicle_Board</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>New Motor Vehicle Board</label>
+        <sharedTo>
+            <role>New_Motor_Vehicle_Board</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>New Motor Vehicle Board</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_Board_of_Pilot_Commissioners</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - Board of Pilot Commissioners</label>
+        <sharedTo>
+            <role>Board_of_Pilot_Commissioners</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>Board of Pilot Commissioners</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_California_Highway_Patrol</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - California Highway Patrol</label>
+        <sharedTo>
+            <role>California_Highway_Patrol</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>California Highway Patrol</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_California_State_Transportation_Agency</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - California State Transportation Agency</label>
+        <sharedTo>
+            <role>CalSTA</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>California State Transportation Agency</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_California_Transportation_Commission</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - California Transportation Commission</label>
+        <sharedTo>
+            <role>California_Transportation_Commission</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>California Transportation Commission</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_Department_of_Motor_Vehicles</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - Department of Motor Vehicles</label>
+        <sharedTo>
+            <role>Department_of_Motor_Vehicles</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>Department of Motor Vehicles</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_Department_of_Transportation</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - Department of Transportation</label>
+        <sharedTo>
+            <role>Department_of_Transportation</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>Department of Transportation</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_Governor_s_Office</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - Governor’s Office</label>
+        <sharedTo>
+            <role>CalSTA</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>Governor’s Office</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_High_Speed_Rail_Authority</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - High-Speed Rail Authority</label>
+        <sharedTo>
+            <role>High_Speed_Rail_Authority</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>High-Speed Rail Authority</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_New_Motor_Vehicle_Board</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - New Motor Vehicle Board</label>
+        <sharedTo>
+            <role>New_Motor_Vehicle_Board</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>New Motor Vehicle Board</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Non_Confidential_Office_of_Traffic_Safety</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Non Confidential - Office of Traffic Safety</label>
+        <sharedTo>
+            <role>Office_of_Traffic_Safety</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>DepartmentName__c</field>
+            <operation>equals</operation>
+            <value>Office of Traffic Safety</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Office_of_Traffic_Safety</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Office of Traffic Safety</label>
+        <sharedTo>
+            <role>Office_of_Traffic_Safety</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Department_Sent_To_Name__c</field>
+            <operation>equals</operation>
+            <value>Office of Traffic Safety</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Confidential__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>
