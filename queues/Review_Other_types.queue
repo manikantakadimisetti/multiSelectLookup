@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Review-Other types</name>
+    <queueMembers>
+        <users>
+            <user>steven.moreno-cimts@calsta.ca.gov</user>
+            <user>tiori.randolph-cimts@calsta.ca.gov</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

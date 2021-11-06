@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Office of Traffic Safety IMC</name>
+    <queueMembers>
+        <users>
+            <user>cynthia.carter@ots.ca.gov</user>
+            <user>jessica.chan-cimts@ots.ca.gov</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

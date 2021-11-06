@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Draft</fullName>
+        <default>true</default>
+        <label>Draft</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at Agency</fullName>
+        <default>false</default>
+        <label>Pending at Agency</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at Department for Revision</fullName>
+        <default>false</default>
+        <label>Pending at Department for Revision</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at GO</fullName>
+        <default>false</default>
+        <label>Pending at GO</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at GO - Cabinet</fullName>
+        <default>false</default>
+        <label>Pending at GO - Cabinet</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at GO - Communications</fullName>
+        <default>false</default>
+        <label>Pending at GO - Communications</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at GO - DOF</fullName>
+        <default>false</default>
+        <label>Pending at GO - DOF</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at GO - Legal</fullName>
+        <default>false</default>
+        <label>Pending at GO - Legal</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at GO - Legislative</fullName>
+        <default>false</default>
+        <label>Pending at GO - Legislative</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>GO Approved; CalSTA Action Pending</fullName>
+        <default>false</default>
+        <label>GO Approved; CalSTA Action Pending</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>GO Denied; CalSTA Action Pending</fullName>
+        <default>false</default>
+        <label>GO Denied; CalSTA Action Pending</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>GO Approved; Completed</fullName>
+        <default>false</default>
+        <label>GO Approved; Completed</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>GO Denied; Completed</fullName>
+        <default>false</default>
+        <label>GO Denied; Completed</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Pending at Department</fullName>
+        <default>false</default>
+        <label>Pending at Department</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Returned from Governor’s Office</fullName>
+        <default>false</default>
+        <label>Returned from Governor’s Office</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Approved By CalSTA; Pending At GO</fullName>
+        <default>false</default>
+        <label>Approved By CalSTA; Pending At GO</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>GO Approved; CalSTA Action Completed</fullName>
+        <default>false</default>
+        <label>GO Approved; CalSTA Action Completed</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Completed</fullName>
+        <default>false</default>
+        <label>Completed</label>
+        <closed>true</closed>
+    </standardValue>
+</StandardValueSet>

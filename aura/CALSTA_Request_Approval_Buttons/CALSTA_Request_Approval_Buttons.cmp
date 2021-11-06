@@ -1,0 +1,459 @@
+<aura:component controller="CalSTA_RequestApprovalProcessController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global" >
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="SubmitforApprovalModal" type="boolean" default="false" />    
+    <aura:attribute name="submittingbuttons" type="Boolean"/>
+    <aura:attribute name="isSubmitforApprovalbuttonVisible" type="boolean" default="false"/>
+    <aura:attribute name="isApprovalModalOpen" type="boolean" default="false" />
+    <aura:attribute name="isFinalApprovalModalOpen" type="boolean" default="false" />
+    <aura:attribute name="isRejectModalOpen" type="boolean" default="false" />  
+    <aura:attribute name="isfinalApprovalStatus" type="boolean" default="false" />
+    <aura:attribute name="isSecretoryApprovalStatus" type="boolean" default="false" />
+    <aura:attribute name="isReviewStatus" type="boolean" default="false" />
+    <aura:attribute name="isDraftStatus" type="boolean" default="false" />
+    <aura:attribute name="isreassigningModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="isreEvaluatedModalOpen" type="boolean" default="false"/>    
+    <aura:attribute name="issecretaryApprovalModalOpen" type="boolean" default="false"/>  
+    
+    <aura:attribute name="isConfidential" type="boolean" default="false"/>
+    <aura:attribute name="isAddingReviwersModalOpen" type="boolean" default="false"/>    
+    <aura:attribute name="isReviewingModalOpen" type="boolean" default="false"/> 
+    
+    <aura:attribute name="showReviewed" type="boolean" default="false"/>    
+    <aura:attribute name="showAddReviewers" type="boolean" default="false"/>    
+    <aura:attribute name="showFinalApproval" type="boolean" default="false"/> 
+    
+    <aura:attribute name="ReviewersMap" type="Map" default="{}" />
+    <aura:attribute name="ReviewersList" type="List" default="[]"/>
+    <aura:attribute name="SelectedReviewers" type="List" default="[]"/>
+    <aura:attribute name="SelectedReviewer" type="string" default=""/>
+    
+    <aura:attribute name="selectedLookUpRecord" type="sObject" default="{}"/>
+    <aura:attribute name="selectedRecord" type="sObject" default="{}" description="Use,for store SELECTED sObject Record"/>
+    <aura:handler name="oSelectedRecordEvent" event="c:selectedObjectrecordEvent" action="{!c.ReassignhandleComponentEvent}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.getApprovalStatus}"/>
+    <aura:registerEvent name="refreshChildComponent" type="c:refreshComponent"/>
+    <aura:attribute name="ApprovalLabelName" type="String" default="Submit for Approval"/>
+    <aura:attribute name="isImpalItRt" type="boolean" default="false"/>
+    <aura:attribute name="dateValue" type="date" />
+    <!--Mk adding send for revision -->
+    <aura:attribute name="caseData" type="sObject"/>
+    <aura:attribute name="profileData" type="string"/>
+    <aura:attribute name="addReviewerComboVal" type="string" default=""/>    
+    
+    <!-- Buttons -->
+    <div class="slds-theme_default">
+        <div class="slds-clearfix ">
+            <div class="slds-float_right approval-btns"> 
+                <lightning:buttonIcon iconName="utility:refresh"  alternativeText="Refresh" onclick="{!c.refreshParentCmp}"/>
+                <aura:if isTrue="{!v.isDraftStatus}">
+                    <aura:if isTrue="{!v.isSubmitforApprovalbuttonVisible}">
+                        <lightning:button  label="Submit for Approval"  onclick="{!c.submitforApprovalopenModel}" />
+                    </aura:if>                    
+                </aura:if>
+                <aura:if isTrue="{!v.submittingbuttons}">        
+                    <aura:if isTrue="{!v.isConfidential == False}">       
+                        <aura:if isTrue="{!v.isReviewStatus}">
+                            <lightning:button   label="Send for Revision" onclick="{!c.RejectApproveModal}"/>
+                            <lightning:button  label="Forward for Review" onclick="{!c.reassignopenModel }" /> 
+                            <lightning:button  label="Forward for Approval" onclick="{!c.handleApproveModal}"/>
+                        </aura:if>                    
+                        <aura:if isTrue="{!v.isfinalApprovalStatus}"> 
+                            <aura:if isTrue='{!v.isSecretoryApprovalStatus}'>
+                                <lightning:button  label="Send for Secretary's Approval" title="Send for Secretary's Approval" onclick="{! c.secretoryApproveopenModel }" />     
+                                <lightning:button  label="Re-Evaluate" onclick="{!c.reevaluatedopenModel}"/>
+                            </aura:if>                        
+                            <lightning:button  label="CalSTA Final Approval" onclick="{!c.showFinalApproveModal}"/> 
+                        </aura:if> 
+                    </aura:if>  
+                    <aura:if isTrue="{!v.isConfidential}">                    
+                        <aura:if isTrue="{!v.showReviewed}">
+                            <lightning:button  label="Reviewed" onclick="{!c.reviewingModal}"/>
+                        </aura:if>                
+                        <aura:if isTrue="{!v.showAddReviewers}">
+                            <lightning:button  label="Add Reviewers" onclick="{!c.AddReviewerModal}" /> 
+                        </aura:if>
+                        <aura:if isTrue="{!v.showFinalApproval}">
+                            <lightning:button  label="CalSTA Final Approval" onclick="{!c.showFinalApproveModal}"/>
+                        </aura:if>   
+                    </aura:if>
+                </aura:if>
+            </div> 
+        </div>
+    </div> 
+    
+    <!-- Submit for Approval popup Modal box -->
+    <aura:if isTrue="{!v.SubmitforApprovalModal}"> 
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">                    
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.submitforApprovalcloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.ApprovalLabelName}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p>
+                        <lightning:textarea aura:id="submitforapprovecomments" class="approvecomments" messageWhenValueMissing="These required field must be completed" required="true" label="Tracking Comments" rows="20" maxlength="255" />
+                        
+                    </p>
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.submitforApprovalcloseModel }"/>
+                    <lightning:button variant="brand"
+                                      label="Submit"
+                                      title="Submit"
+                                      onclick="{!c.submitforApprovalsubmitModel}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>   
+    
+    <!-- Approval popup Modal box -->
+    <aura:if isTrue="{!v.isApprovalModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">                    
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.ApprovalcloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.ApprovalLabelName}</h2>
+                </header>                    
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <aura:if isTrue="{!v.isImpalItRt}">
+                        <div class="showingUserList">
+                            <c:CALSTA_Request_forwardapproval_Reassign  recordId="{!v.recordId}"  objectAPIName="user" IconName="standard:user" 
+                                                                       selectedRecord="{!v.selectedLookUpRecord}" label="Forward for Approval" 
+                                                                       required="true"  />
+                        </div>
+                        <div class="slds-p-around_small">
+                            <lightning:textarea  aura:id="Forwardapprovalcomments" 
+                                                label="Tracking Comments"  maxlength="255" 
+                                                messageWhenValueMissing="These required field must be completed" required="true" />
+                        </div>
+                        <aura:set attribute="else">
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <p>
+                                    <lightning:textarea aura:id="approvecomments" class="approvecomments" messageWhenValueMissing="These required field must be completed" required="true" label="Tracking Comments" rows="20" maxlength="255"/>
+                                </p>                        
+                            </div> 
+                            
+                        </aura:set>
+                    </aura:if>
+                    
+                </div>                  
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.ApprovalcloseModel }"/>
+                    <aura:if isTrue="{!v.isImpalItRt}">
+                        <lightning:button variant="brand"
+                                          label="Submit"
+                                          title="Submit"
+                                          onclick="{!c.forwardapprovalReassign}"/>                            
+                        <aura:set attribute="else">
+                            <lightning:button variant="brand"
+                                              label="Submit"
+                                              title="Submit"
+                                              onclick="{! c.ApprovalsubmitDetails }"/>
+                        </aura:set>                                
+                    </aura:if>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    <!-- Final Approval popup Modal box -->
+    <aura:if isTrue="{!v.isFinalApprovalModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">                    
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.finalApprovalcloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.ApprovalLabelName}</h2>
+                </header>                    
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p>
+                        <lightning:textarea aura:id="finalapprovecomments" class="approvecomments" messageWhenValueMissing="These required field must be completed" required="true" label="Tracking Comments" rows="20" maxlength="255"/>
+                    </p>                        
+                </div>                    
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.finalApprovalcloseModel }"/>
+                    <lightning:button variant="brand"
+                                      label="Submit"
+                                      title="Submit"
+                                      onclick="{!c.finalApprovalsubmitDetails}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    <!-- Reject popup Modal box -->
+   <!-- <aura:if isTrue="{!v.isRejectModalOpen}">            
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.RejectcloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.ApprovalLabelName}</h2>
+                </header>                    
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:recordEditForm aura:id="editForm" recordId="{!v.recordId}" objectApiName="Case">
+                        <lightning:messages />
+                        <lightning:inputField name="dateRevisionReq" aura:id="dateRevisionReq" fieldName="Date_Revision_Due_Back_From_Dept__c" required="true" 
+                                              messageWhenValueMissing="These required field must be completed" />
+                        <lightning:textarea name="rejectcomments" messageWhenValueMissing="These required field must be completed"
+                                            required="true" aura:id="rejectComments" class="approvecomments" label="Tracking Comments"
+                                            rows="20" maxlength="255" /> 
+                    </lightning:recordEditForm>            
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="Cancel" title="Cancel" type="text" onclick="{!c.RejectcloseModel}"/>
+                    <lightning:button variant="brand" label="Submit" title="Submit" type="submit" onclick="{!c.RejectsubmitDetails}"/>
+                </footer>   
+            </div> 
+        </section> 
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    -->
+    <!-- reassigning popup Modal box 
+    <aura:if isTrue="{!v.isreassigningModalOpen}">
+     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01"
+                 aria-modal="true" aria-describedby="modal-content-id-1"
+                 class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.reassigncloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.ApprovalLabelName}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="showingUserList">
+                        
+                        <c:CALSTA_Request_Reassign  recordId="{!v.recordId}"  objectAPIName="user" IconName="standard:user" 
+                                            selectedRecord="{!v.selectedLookUpRecord}" label="Forward for Review" 
+                                            required="true"  />
+                    </div>
+                    <div class="slds-p-around_small">
+                        <lightning:textarea  aura:id="forwardReviewComments"
+                                            label="Tracking Comments"  maxlength="255" 
+                                            messageWhenValueMissing="These required field must be completed" required="true" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" 
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.reassigncloseModel }"/>
+                    <lightning:button variant="brand" 
+                                      label="Submit"
+                                      title="Submit"
+                                      onclick="{! c.Reassign }" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if> 
+    -->
+    <!-- re-evaluated popup Modal box -->
+    <aura:if isTrue="{!v.isreEvaluatedModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01"
+                 aria-modal="true" aria-describedby="modal-content-id-1"
+                 class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.reevaluatecloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Re-Evaluate</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">                       
+                    <div class="slds-p-around_small">                                                                       
+                        <lightning:textarea  aura:id="reevaluatecomments"
+                                            label="Tracking Comments" required="true" maxlength="255" 
+                                            messageWhenValueMissing="These required field must be completed"/>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" 
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.reevaluatecloseModel }"/>
+                    <lightning:button variant="brand" 
+                                      label="Submit"
+                                      title="Submit"
+                                      onclick="{! c.Reevaluated }" disabled="false"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    <!-- Send for Secretary popup Modal box -->
+    <aura:if isTrue="{!v.issecretaryApprovalModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.SecretoryApprovalcloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Send for Secretary's Approval</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p>
+                        <lightning:textarea aura:id="secratoryapprovecomments" class="approvecomments" messageWhenValueMissing="These required field must be completed" required="true" maxlength="255" label="Tracking Comments"/>
+                    </p>
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.SecretoryApprovalcloseModel }"/>
+                    <lightning:button variant="brand"
+                                      label="Submit"
+                                      title="Submit"
+                                      onclick="{!c.SecretoryApprovalsubmitDetails}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>  
+    
+    <!-- Reviewed popup Modal box -->
+    <aura:if isTrue="{!v.isReviewingModalOpen}">            
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.reviewingModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Review Request</h2>
+                </header>                    
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p>
+                        <lightning:textarea aura:id="reviewingcomments" class="approvecomments" messageWhenValueMissing="These required field must be completed" required="true" label="Tracking Comments" rows="20" maxlength="255"/>
+                    </p>             
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="Cancel" title="Cancel" type="text" onclick="{!c.reviewingModal}"/>
+                    <lightning:button variant="brand" label="Submit" title="Submit" type="submit" onclick="{!c.ReviewingOnly}"/>
+                </footer>  
+            </div> 
+        </section> 
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+    <!-- Add Reviewers popup Modal box -->
+    <aura:if isTrue="{!v.isAddingReviwersModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01"
+                 aria-modal="true" aria-describedby="modal-content-id-1"
+                 class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.AddReviewerModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Reviewers</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" >
+                    
+                    <lightning:combobox aura:id="ComboboxReviewers" name="Reviewers" label="Select Reviewers" value="{!v.addReviewerComboVal}" placeholder="Select Reviewers" required="true" messageWhenValueMissing="These required field must be completed" options="{! v.ReviewersList }" onchange="{!c.onSelectReviewer}"/>
+                    <aura:if isTrue="{!v.SelectedReviewers.length!=0}">
+                        <lightning:pillContainer items="{!v.SelectedReviewers}" onitemremove="{!c.RemoveSelected}"></lightning:pillContainer>
+                    </aura:if>
+                    
+                    <lightning:textarea aura:id="AddingReviewercomments" class="approvecomments" messageWhenValueMissing="These required field must be completed" required="true" label="Tracking Comments" rows="20" maxlength="255" />
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" 
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.AddReviewerModal }"/>
+                    <lightning:button variant="brand" 
+                                      label="Submit"
+                                      title="Submit"
+                                      onclick="{! c.AddingReviewers }" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if> 
+    
+    <!-- reassigning popup Modal box -->
+    <aura:if isTrue="{!v.isreassigningModalOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01"
+                 aria-modal="true" aria-describedby="modal-content-id-1"
+                 class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.reassigncloseModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{!v.ApprovalLabelName}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="showingUserList">                        
+                        <lightning:combobox aura:id="ComboboxReviewers" name="Reviewers" label="Select Reviewers" value="{!v.addReviewerComboVal}" placeholder="Select Reviewers" required="true" messageWhenValueMissing="These required field must be completed" options="{! v.ReviewersList }" onchange="{!c.onSelectReviewer}"/>
+                <!--       <aura:if isTrue="{!v.SelectedReviewers.length!=0}">
+                        <lightning:pillContainer items="{!v.SelectedReviewers}" onitemremove="{!c.RemoveSelected}"></lightning:pillContainer>
+                    </aura:if> -->
+                    </div> 
+                    <div class="slds-p-around_small">
+                        <lightning:textarea  aura:id="forwardReviewComments"
+                                            label="Tracking Comments"  maxlength="255" 
+                                            messageWhenValueMissing="These required field must be completed" required="true" />
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" 
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.reassigncloseModel }"/>
+                    <lightning:button variant="brand" 
+                                      label="Submit"
+                                      title="Submit"
+                                      onclick="{! c.Reassign }" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>    
+    
+    
+    
+</aura:component>
