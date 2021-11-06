@@ -8,7 +8,7 @@ const columns = [
     { label: 'Balance', fieldName: 'amount', type: 'currency' },
     { label: 'CloseAt', fieldName: 'closeAt', type: 'date' },
 ];
-//Added to git remote to respiratory
+//Added to git remote to respiratory zome what
 export default class resizingColumn extends LightningElement {
     inputValue;
     childObj;
